@@ -1,0 +1,20 @@
+.bt-generic{
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 8px 18px;
+    background-color: #1890FF;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 27px;
+   display: block;
+   border: none;
+   cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+.bt-generic:hover{
+    background-color: rgba(24, 143, 255, 0.837);
+}

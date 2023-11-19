@@ -1,0 +1,25 @@
+:root{
+  --color-bg-body: #fff;
+  --color-bg-header: #1890FF;
+
+  --font-color-primary: #fff;
+}
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif
+}
+
+body, html{
+  background-color: var(--color-bg-body);
+}
+
+
+main{
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 27px 41px;
+}

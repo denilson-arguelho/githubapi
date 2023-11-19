@@ -1,0 +1,56 @@
+.container-search-perfil {
+    background-color: #e6f7ff;
+    height: 270px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  h2 {
+    font-size: 38px;
+    font-weight: 500;
+    color: #262626;
+    margin-bottom: 12px;
+  }
+  
+  .bt-generic{
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 8px 18px;
+    background-color: #1890FF;
+    border-radius: 5px;
+    color: #fff;
+    margin-top: 27px;
+   display: block;
+   border: none;
+   cursor: pointer;
+  }
+  a{
+    text-decoration: none;
+  }
+  .bt-generic:hover{
+    background-color: rgba(24, 143, 255, 0.837);
+  }
+  
+  input {
+    width: 298px;
+    height: 40px;
+    padding: 8px 17px;
+    font-size: 16px;
+    border: 1px solid #D9D9D9 ;
+    border-radius: 5px;
+  }
+  
+  input ::placeholder{
+      padding: 8px 17px;
+      color: #BFBFBF;
+  
+  }
+  
+  input:focus{
+      outline: none;
+  }
+  
+  
+  

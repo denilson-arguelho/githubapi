@@ -1,6 +1,6 @@
 import "./styles.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PerfilDTO } from "../../models/perfilDTO";
 import ResultPerfil from "../ResultPerfil";
 import Loader from "../Loader";
@@ -10,12 +10,12 @@ export type FormData = {
 };
 
 const Search = () => {
-  const [inputName, setInputName] = useState("");
+/*   const [inputName, setInputName] = useState(""); */
   const [formData, setFormData] = useState<FormData>({ name: "" });
-  const [perfil, setPerfil] = useState<PerfilDTO>();
+  const [perfil, setPerfil] = useState<PerfilDTO | undefined>();
   const [loading, setLoading] = useState(false);
-
-
+  const [showResult, setShowResult] = useState(false);
+  const [erro, setErro] = useState<string | undefined>();
 
   function handleInputChange(event: any) {
     const value = event.target.value;
@@ -23,32 +23,35 @@ const Search = () => {
     setFormData({ ...formData, [name]: value });
   }
 
-
   function handleFormSubmit(event: any) {
     event.preventDefault();
 
     setLoading(true);
-    setTimeout(() => {
-      // Quando a operação assíncrona estiver concluída, pare o carregamento
-      setLoading(false);
-    }, 2000);
 
-    setInputName(formData.name);
+    axios
+      .get(`https://api.github.com/users/${formData.name}`)
+      .then((resp) => {
+        setPerfil(resp.data);
+        setShowResult(true);
+        setErro(undefined); // Resetar o estado de erro
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            setErro("Usuário não encontrado");
+          } else {
+            setErro("Erro ao buscar usuário");
+          }
+        } else {
+          setErro("Erro de conexão");
+        }
+        setShowResult(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
-  console.log(inputName);
 
-  useEffect(() => {
-    axios.get(`https://api.github.com/users/${inputName}`).then((resp) => {
-      setPerfil(resp.data);
-    }).catch((error)=>{
-      if(error.response && error.response.status === 404){
-        setPerfil(undefined)
-      }
-      
-    })
-  }, [inputName]);
-  console.log(perfil);
-  
   return (
     <>
       <div className="container-search-perfil">
@@ -64,16 +67,13 @@ const Search = () => {
           <button className="bt-generic" type="submit">
             Encontrar
           </button>
-          <div></div>
         </form>
       </div>
       <div className="result-perfil">
         {loading && <Loader />}
-    
-        {!loading && perfil !== undefined ? (
-           <ResultPerfil perfil={perfil} />
-        ) : (<h1>Erro ao buscar usuário</h1>)}
-        
+
+        {showResult && perfil && <ResultPerfil perfil={perfil} />}
+        {erro && <h2>{erro}</h2>}
       </div>
     </>
   );
